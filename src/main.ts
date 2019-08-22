@@ -8,7 +8,7 @@ async function run() {
         const client = new github.GitHub(token);
         const assignee = getPrAssignee();
         if (!assignee) {
-            console.debug('PR is unassigned');
+            console.log('PR is unassigned, assigning PR');
             const success = await assignPull(client);
             if (!success) {
                 core.setFailed('Assigning PR failed')
@@ -44,17 +44,20 @@ async function assignPull(client: github.GitHub): Promise<Boolean> {
 }
 
 function getPrNumber(): number | undefined {
+    console.log('getting PR number')
     const pullRequest = github.context.payload.pull_request;
     if (!pullRequest) {
+        console.log('could not get PR object')
         return undefined;
     }
-
     return pullRequest.number;
 }
 
 function getPrAssignee(): string[] | undefined {
+    console.log('getting PR assignees')
     const pullRequest = github.context.payload.pull_request;
     if (!pullRequest) {
+        console.log('could not get PR object')
         return undefined;
     }
 
@@ -62,8 +65,10 @@ function getPrAssignee(): string[] | undefined {
 }
 
 function getPrAuthor(): string | undefined {
+    console.log('getting PR author')
     const pullRequest = github.context.payload.pull_request;
     if (!pullRequest || !pullRequest.user) {
+        console.log('could not get PR object or PR object did not have user object')
         return undefined;
     }
 
