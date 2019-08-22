@@ -6,8 +6,8 @@ async function run() {
     try {
         const token = core.getInput('repo-token', { required: true });
         const client = new github.GitHub(token);
-        const assignee = getPrAssignee();
-        if (!assignee) {
+        const assignees = getPrAssignees();
+        if (!assignees || !Array.isArray(assignees) || !assignees.length) {
             console.log('PR is unassigned, assigning PR');
             const success = await assignPull(client);
             if (!success) {
@@ -54,7 +54,7 @@ function getPrNumber(): number | undefined {
     return pullRequest.number;
 }
 
-function getPrAssignee(): string[] | undefined {
+function getPrAssignees(): string[] | undefined {
     console.log('getting PR assignees');
     const pullRequest = github.context.payload.pull_request;
     if (!pullRequest) {
