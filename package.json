@@ -1,5 +1,5 @@
 {
-  "name": "pr-assigner-action",
+  "name": "assign-pr-to-author",
   "version": "0.0.0",
   "private": true,
   "description": "Auto assign github PRs to the author",
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/samspills/pr-actions"
+    "url": "git+https://github.com/samspills/assign-pr-to-author"
   },
   "keywords": [
     "actions"

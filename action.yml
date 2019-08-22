@@ -1,5 +1,5 @@
-name: 'PR Actions'
-description: 'Auto-assign a PR to the author'
+name: 'Assign PR to Author'
+description: 'Auto-assign a PR to the author if it is unassigned'
 author: 'Sam Pillsworth'
 runs:
   using: 'node12'
