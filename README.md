@@ -1,9 +1,21 @@
-# JavaScript Action Template
+# Auto Assign Author to a PR
 
-This template offers an easy way to get started writing a javascript action with TypeScript compile time support, unit testing with Jest and using the GitHub Actions Toolkit.
+This action will set the author of a PR as one of the assignees if the PR is otherwise unassigned.
 
-## Getting Started
+## Run as a github action
 
-See the walkthrough located [here](https://github.com/actions/toolkit/blob/master/docs/javascript-action.md).
+Here is a sample `.yml` file to add this action
 
-In addition to walking your through how to create an action, it also provides strategies for versioning, releasing and referencing your actions.
+```yaml
+name: AutoAssigner
+on: [pull_request]
+
+jobs:
+  assignAuthor:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: samspills/assign-pr-to-author@v1.0
+        if: github.event_name == 'pull_request' && github.event.action == 'opened'
+        with:
+          repo-token: '${{ secrets.GITHUB_TOKEN }}'
+```
