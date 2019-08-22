@@ -1,8 +1,8 @@
 {
-  "name": "node12-template-action",
+  "name": "pr-assigner-action",
   "version": "0.0.0",
   "private": true,
-  "description": "Node 12 template action",
+  "description": "Auto assign github PRs to the author",
   "main": "lib/main.js",
   "scripts": {
     "build": "tsc",
@@ -10,17 +10,17 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/actions/node12-template.git"
+    "url": "git+https://github.com/samspills/pr-actions"
   },
   "keywords": [
-    "actions",
-    "node",
-    "setup"
+    "actions"
   ],
-  "author": "GitHub",
+  "author": "Sam Pillsworth",
   "license": "MIT",
   "dependencies": {
-    "@actions/core": "^1.0.0"
+    "@actions/core": "^1.0.0",
+    "@actions/github": "^1.0.0",
+    "@octokit/rest": "^15.18.2"
   },
   "devDependencies": {
     "@types/jest": "^24.0.13",
