@@ -11,10 +11,11 @@ async function run() {
             console.log('PR is unassigned, assigning PR');
             const success = await assignPull(client);
             if (!success) {
-                core.setFailed('Assigning PR failed')
+                core.setFailed('Assigning PR failed');
             }
         }
     } catch (error) {
+        console.error(error.message)
         core.error(error);
         core.setFailed(error.message);
     }
@@ -54,7 +55,7 @@ function getPrNumber(): number | undefined {
 }
 
 function getPrAssignee(): string[] | undefined {
-    console.log('getting PR assignees')
+    console.log('getting PR assignees');
     const pullRequest = github.context.payload.pull_request;
     if (!pullRequest) {
         console.log('could not get PR object')
