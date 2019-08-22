@@ -1,6 +1,8 @@
 name: 'Assign PR to Author'
 description: 'Auto-assign a PR to the author if it is unassigned'
 author: 'Sam Pillsworth'
+icon: 'user-plus'
+color: 'green'
 runs:
   using: 'node12'
   main: 'lib/main.js'
