@@ -1,6 +1,5 @@
 import * as core from '@actions/core';
 import * as github from '@actions/github';
-import { BooleanTypeAnnotation } from '@babel/types';
 
 async function run() {
     try {
@@ -25,19 +24,24 @@ async function assignPull(client: github.GitHub): Promise<Boolean> {
     const author = getPrAuthor();
     const prNumber = getPrNumber();
     if (!author) {
-        console.log('Could not get PR author, exiting');
+        console.log('Could not get PR author, aborting');
         return false;
     }
     if (!prNumber) {
-        console.log('Could not get PR number, exiting');
+        console.log('Could not get PR number, aborting');
         return false;
+    }
+
+    if (author.type != 'User') {
+        console.log('author not a "User", exiting')
+        return true;
     }
     await client.issues.update({
         owner: github.context.repo.owner,
         repo: github.context.repo.repo,
         issue_number: prNumber,
         assignees: [
-            author
+            author.login
         ]
     })
 
@@ -65,7 +69,12 @@ function getPrAssignees(): string[] | undefined {
     return pullRequest.assignees
 }
 
-function getPrAuthor(): string | undefined {
+interface User {
+    login: string;
+    type: string;
+}
+
+function getPrAuthor(): User | undefined {
     console.log('getting PR author')
     const pullRequest = github.context.payload.pull_request;
     if (!pullRequest || !pullRequest.user) {
@@ -73,11 +82,7 @@ function getPrAuthor(): string | undefined {
         return undefined;
     }
 
-    if (pullRequest.user.type != 'User') {
-        console.log('author not a "User"')
-        return undefined
-    }
 
-    return pullRequest.user.login
+    return pullRequest.user
 }
 run();
