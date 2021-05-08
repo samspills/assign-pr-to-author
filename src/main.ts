@@ -73,7 +73,7 @@ function getPrAuthor(): string | undefined {
         return undefined;
     }
 
-    if (!pullRequest.user.type == 'User') {
+    if (pullRequest.user.type != 'User') {
         console.log('author not a "User"')
         return undefined
     }
