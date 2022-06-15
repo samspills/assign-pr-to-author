@@ -1,6 +1,10 @@
 name: 'Assign PR to Author'
 description: 'Auto-assign a PR to the author if it is unassigned'
 author: 'Sam Pillsworth'
+inputs:
+  repo-token:
+    description: 'Token for the repository. Can be passed in using {{ secrets.GITHUB_TOKEN }}'
+    required: true
 branding:
   icon: 'user-plus'
   color: 'green'
